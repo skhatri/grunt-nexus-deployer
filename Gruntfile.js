@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                 options: {
                     groupId: "grunt-nexus-deployer",
                     artifactId: "grunt-nexus-deployer",
-                    version: "1.1",
+                    version: "1.2",
                     packaging: 'zip',
                     auth: {
                         username: auth.username,
