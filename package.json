@@ -1,0 +1,46 @@
+{
+    "name": "grunt-nexus-deployer",
+    "description": "Deploy artifacts with classifiers to release/snapshot maven repository.",
+    "version": "0.0.2",
+    "homepage": "https://github.com/skhatri/grunt-nexus-deployer",
+    "author": {
+        "name": "Suresh Khatri",
+        "email": "servlet2@msn.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:skhatri/grunt-nexus-deployer.git"
+    },
+    "bugs": {
+        "url": "https://github.com/skhatri/grunt-nexus-deployer/issues"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/skhatri/grunt-nexus-deployer/blob/master/LICENSE-MIT"
+        }
+    ],
+    "engines": {
+        "node": ">= 0.10"
+    },
+    "scripts": {
+        "test": "grunt test"
+    },
+    "devDependencies": {
+        "grunt-contrib-jshint": "~0.6.0",
+        "grunt-contrib-clean": "~0.4.0",
+        "grunt": "~0.4.2",
+        "grunt-mocha-test": "~0.8.2",
+        "dateformat":"*",
+        "async": "*",
+        "should":"~3.1.2",
+        "grunt-env":"*",
+        "ejs": "*"
+    },
+    "peerDependencies": {
+        "grunt": "~0.4.2"
+    },
+    "keywords": [
+        "nexus", "maven", "deployer"
+    ]
+}
