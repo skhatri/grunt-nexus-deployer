@@ -4,6 +4,7 @@
 
 [![Build Status](https://travis-ci.org/skhatri/grunt-nexus-deployer.png)](https://travis-ci.org/skhatri/grunt-nexus-deployer) 
 [![NPM version](https://badge.fury.io/js/grunt-nexus-deployer.png)](http://npmjs.org/package/grunt-nexus-deployer)
+[![Dependency Status](https://david-dm.org/skhatri/grunt-nexus-deployer.png)](https://david-dm.org/skhatri/grunt-nexus-deployer)
 ## Getting Started
 This plugin requires Grunt `~0.4.2`
 
