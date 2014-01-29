@@ -143,7 +143,7 @@ grunt.initConfig({
 			password:'admin123'
 		  },
 		  pomDir: 'build/pom',
-		  url: 'http://localhost:9220/nexus/content/repositories/releases',
+		  url: 'http://localhost:8081/nexus/content/repositories/releases',
 		  artifact: 'build/grunt-nexus-deployer.zip',
 		  noproxy: 'localhost',
 		  cwd: ''
@@ -169,10 +169,12 @@ grunt.initConfig({
 			password:'admin123'
 		  },
 		  pomDir: 'build/pom',
-		  url: 'http://localhost:9220/nexus/content/repositories/snapshots',
+		  url: 'http://localhost:8081/nexus/content/repositories/snapshots',
 		  artifact: 'build/grunt-nexus-deployer.zip',
 		  noproxy: 'localhost',
-		  cwd: ''
+		  cwd: '',
+		  parallel:false,
+		  quiet: true
 		}
       }
     }
