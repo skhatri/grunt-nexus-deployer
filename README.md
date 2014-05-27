@@ -34,6 +34,7 @@ grunt.initConfig({
 		  artifactId: "grunt-nexus-deployer",
 		  version: "1.0",
 		  packaging: 'zip',
+                  classifier: 'dev',
 		  auth: {
 			username:'admin',
 			password:'admin123'
@@ -68,6 +69,12 @@ Type: `String`
 Default value: `''`
 
 Type of artifact. eg zip, jar, pom, war etc.
+
+#### options.classifier
+Type: `String`
+Defaut value: `''`
+
+An optional classifier that can further distinguish between artifacts of the same group, id and version. eg dev, prod etc. (i.e. artifact-1.0-dev.zip, artifact-1.0-prod.zip)
 
 #### options.version
 Type: `String`
