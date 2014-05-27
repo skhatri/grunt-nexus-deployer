@@ -1,7 +1,7 @@
 {
     "name": "grunt-nexus-deployer",
     "description": "Deploy artifacts with classifiers to release/snapshot maven repository.",
-    "version": "0.0.3",
+    "version": "0.0.2",
     "homepage": "https://github.com/skhatri/grunt-nexus-deployer",
     "author": {
         "name": "Suresh Khatri",
