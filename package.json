@@ -26,16 +26,18 @@
     "scripts": {
         "test": "grunt test"
     },
+    "dependencies": {
+        "dateformat":"1.0.7-1.2.3",
+        "async": "0.2.10",
+        "ejs": "~0.8.5"
+    },
     "devDependencies": {
         "grunt-contrib-jshint": "~0.8.0",
         "grunt-contrib-clean": "~0.5.0",
         "grunt": "~0.4.2",
         "grunt-mocha-test": "~0.8.2",
-        "dateformat":"1.0.7-1.2.3",
-        "async": "0.2.10",
         "should":"~3.1.2",
-        "grunt-env":"*",
-        "ejs": "~0.8.5"
+        "grunt-env":"*"
     },
     "peerDependencies": {
         "grunt": "~0.4.2"
