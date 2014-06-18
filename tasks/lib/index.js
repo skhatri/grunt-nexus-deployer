@@ -59,14 +59,30 @@ var createAndUploadArtifacts = function (options, done) {
             if (!options.quiet) {
                 log.write('Uploading to ' + targetUri + "\n\n");
             }
-            var auth = "";
+
+            var curlOptions = [
+                '--silent',
+                '--output', '/dev/stderr',
+                '--write-out', '%{http_code}',
+                '--upload-file', fileLocation,
+                '--noproxy', options.noproxy ? options.noproxy : '127.0.0.1'
+            ];
+
             if (options.auth) {
-                auth = "-u " + options.auth.username + ":" + options.auth.password;
+                curlOptions.push('-u');
+                curlOptions.push(options.auth.username + ":" + options.auth.password);
             }
-            var noproxy = '--noproxy ' + (options.noproxy ? options.noproxy : '127.0.0.1');
+
+            if (options.insecure) {
+                curlOptions.push('--insecure');
+            }
+
             var execOptions = {};
             options.cwd && (execOptions.cwd = options.cwd);
-            var childProcess = exec('curl --silent --output /dev/stderr --write-out %{http_code} ' + auth + ' ' + noproxy + ' --upload-file ' + fileLocation + ' ' + targetUri, execOptions, function () {
+
+            var curlCmd = ['curl', curlOptions.join(' '), targetUri].join(' ');
+
+            var childProcess = exec(curlCmd, execOptions, function () {
             });
             childProcess.stdout.on('data', function (data) {
                 status = data;

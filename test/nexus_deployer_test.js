@@ -52,6 +52,21 @@ describe('Nexus Deployer', function () {
             }).length.should.equal(3);
         });
 
+        it('ssl certificate errors can be skipped', function () {
+            snapshotHistory.forEach(function (callParams) {
+                if (callParams) {
+                    callParams.should.match(/--insecure/);
+                }
+            });
+        });
+
+        it('ssl certificate errors are not skipped by default', function () {
+            releaseHistory.forEach(function (callParams) {
+                if (callParams) {
+                    callParams.should.not.match(/--insecure/);
+                }
+            });
+        });
 
     });
 

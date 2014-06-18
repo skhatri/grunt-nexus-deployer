@@ -51,7 +51,8 @@ module.exports = function (grunt) {
                     artifact: 'test/fixtures/example.zip',
                     noproxy: 'localhost',
                     cwd: '',
-                    quiet: false
+                    quiet: false,
+                    insecure: true
                 }
             },
             release: {
