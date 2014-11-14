@@ -35,7 +35,7 @@ describe('Nexus Deployer', function () {
         it('http code is sent to stdout', function () {
             releaseHistory.concat(snapshotHistory).forEach(function (callParams) {
                 if (callParams) {
-                    callParams.should.match(/--write-out %\{http_code\}/);
+                    callParams.should.match(/--write-out \"%\{http_code\}\"/);
                 }
             });
         });
