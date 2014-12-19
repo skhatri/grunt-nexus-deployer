@@ -1,46 +1,50 @@
 {
-    "name": "grunt-nexus-deployer",
-    "description": "Deploy artifacts with classifiers to release/snapshot maven repository.",
-    "version": "0.0.3",
-    "homepage": "https://github.com/skhatri/grunt-nexus-deployer",
-    "author": {
-        "name": "Suresh Khatri",
-        "email": "servlet2@msn.com"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git@github.com:skhatri/grunt-nexus-deployer.git"
-    },
-    "bugs": {
-        "url": "https://github.com/skhatri/grunt-nexus-deployer/issues"
-    },
-    "licenses": [
-        {
-            "type": "MIT",
-            "url": "https://github.com/skhatri/grunt-nexus-deployer/blob/master/LICENSE-MIT"
-        }
-    ],
-    "engines": {
-        "node": ">= 0.10"
-    },
-    "scripts": {
-        "test": "grunt test"
-    },
-    "devDependencies": {
-        "grunt-contrib-jshint": "~0.8.0",
-        "grunt-contrib-clean": "~0.5.0",
-        "grunt": "~0.4.2",
-        "grunt-mocha-test": "~0.8.2",
-        "dateformat":"1.0.7-1.2.3",
-        "async": "0.2.10",
-        "should":"~3.1.2",
-        "grunt-env":"*",
-        "ejs": "~0.8.5"
-    },
-    "peerDependencies": {
-        "grunt": "~0.4.2"
-    },
-    "keywords": [
-        "nexus", "maven", "deployer"
-    ]
+  "name": "grunt-nexus-deployer",
+  "description": "Deploy artifacts with classifiers to release/snapshot maven repository.",
+  "version": "0.0.3",
+  "homepage": "https://github.com/skhatri/grunt-nexus-deployer",
+  "author": {
+    "name": "Suresh Khatri",
+    "email": "servlet2@msn.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:skhatri/grunt-nexus-deployer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/skhatri/grunt-nexus-deployer/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/skhatri/grunt-nexus-deployer/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "async": "~0.9.0",
+    "dateformat": "~1.0.11",
+    "ejs": "~1.0.0"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt": "~0.4.2",
+    "grunt-mocha-test": "~0.8.2",
+    "should": "~3.1.2",
+    "grunt-env": "*"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.2"
+  },
+  "keywords": [
+    "nexus",
+    "maven",
+    "deployer"
+  ]
 }
