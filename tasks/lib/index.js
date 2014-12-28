@@ -161,8 +161,16 @@ module.exports = function (options, cb) {
         throw {name: "IllegalArgumentException", message: "upload artifact options required."};
     }
     exec = process.env.MOCK_NEXUS ? require('./mockexec') : require('child_process').exec;
-    var now = new Date();
-    options.lastUpdated = dateformat(now, "yyyymmddHHMMss");
-    options.timestamp = dateformat(now, "yyyymmdd.HHMMss");
+    
+    var timestamp;
+    
+    if (typeof(options.buildTime) === 'string') {
+    	timestamp = Date.parse(options.buildTime);
+    } else {
+    	timestamp = new Date();
+    }
+    
+    options.lastUpdated = dateformat(timestamp, "yyyymmddHHMMss");
+    options.timestamp = dateformat(timestamp, "yyyymmdd.HHMMss");
     createAndUploadArtifacts(options, cb);
 };
