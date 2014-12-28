@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <groupId>{{=groupId}}</groupId>
+    <artifactId>{{=artifactId}}</artifactId>
+    <version>{{=version}}</version>
+    <versioning>
+        <snapshot>
+            <timestamp>{{=timestamp}}</timestamp>
+            <buildNumber>{{=buildNumber}}</buildNumber>
+        </snapshot>
+        <lastUpdated>{{=lastUpdated}}</lastUpdated>
+    </versioning>
+</metadata>

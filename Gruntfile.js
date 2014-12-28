@@ -41,6 +41,7 @@ module.exports = function (grunt) {
                     groupId: "grunt-nexus-deployer",
                     artifactId: "grunt-nexus-deployer",
                     version: "1.2-SNAPSHOT",
+                    buildNumber: "14",
                     packaging: 'zip',
                     auth: {
                         username: auth.username,
