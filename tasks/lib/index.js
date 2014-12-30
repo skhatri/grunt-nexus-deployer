@@ -118,17 +118,23 @@ var createAndUploadArtifacts = function (options, done) {
 
     var remoteArtifactName = options.artifactId + '-' + options.version;
     
+    // Strip off the "-SNAPSHOT" on the end of the version to get the M2 base time-stamped name
+    if (remoteArtifactName.length >= "-SNAPSHOT".length && remoteArtifactName.substring(remoteArtifactName.length - "-SNAPSHOT".length) === "-SNAPSHOT") {
+        remoteArtifactName = remoteArtifactName.substring(0, remoteArtifactName.length - "-SNAPSHOT".length);
+    }
+    
     if (snapshot) {
-    	remoteArtifactName += "-" + options.timestamp + "-" + options.buildNumber;
+        remoteArtifactName += "-" + options.timestamp + "-" + options.buildNumber;
     }
     
     uploads[pomDir + "/pom.xml"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom';
     uploads[pomDir + "/pom.xml.sha1"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.sha1';
     uploads[pomDir + "/pom.xml.md5"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.md5';
 
-    if(options.classifier) {
+    if (options.classifier) {
         remoteArtifactName = remoteArtifactName + "-" + options.classifier;
     }
+    
     uploads[options.artifact] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging;
     uploads[pomDir + "/artifact." + options.packaging + ".sha1"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging + '.sha1';
     uploads[pomDir + "/artifact." + options.packaging + ".md5"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging + '.md5';
