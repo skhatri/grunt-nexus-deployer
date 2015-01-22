@@ -42,6 +42,8 @@ var createAndUploadArtifacts = function (options, done) {
     var snapshot = SNAPSHOT_VER.test(options.version);
 
     options.parallel = options.parallel === undefined ? false : options.parallel;
+    options.uploadMetadata = options.uploadMetadata === undefined ? true : options.uploadMetadata;
+
     if (!file.exists(pomDir)) {
         file.mkdir(pomDir);
     }
@@ -103,17 +105,18 @@ var createAndUploadArtifacts = function (options, done) {
 
     var groupIdAsPath = options.groupId.replace(/\./g, "/");
     var groupArtifactPath = groupIdAsPath + '/' + options.artifactId;
-
-    uploads[pomDir + "/outer.xml"] = groupArtifactPath + '/' + 'maven-metadata.xml';
-    uploads[pomDir + "/outer.xml.sha1"] = groupArtifactPath + '/' + 'maven-metadata.xml.sha1';
-    uploads[pomDir + "/outer.xml.md5"] = groupArtifactPath + '/' + 'maven-metadata.xml.md5';
-
     var groupArtifactVersionPath = groupArtifactPath + '/' + options.version;
-    
-    if (snapshot) {
-        uploads[pomDir + "/inner.xml"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml';
-        uploads[pomDir + "/inner.xml.sha1"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml.sha1';
-        uploads[pomDir + "/inner.xml.md5"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml.md5';
+
+    if (options.uploadMetadata) {
+        uploads[pomDir + "/outer.xml"] = groupArtifactPath + '/' + 'maven-metadata.xml';
+        uploads[pomDir + "/outer.xml.sha1"] = groupArtifactPath + '/' + 'maven-metadata.xml.sha1';
+        uploads[pomDir + "/outer.xml.md5"] = groupArtifactPath + '/' + 'maven-metadata.xml.md5';
+
+        if (snapshot) {
+            uploads[pomDir + "/inner.xml"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml';
+            uploads[pomDir + "/inner.xml.sha1"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml.sha1';
+            uploads[pomDir + "/inner.xml.md5"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml.md5';
+        }
     }
 
     var remoteArtifactName = options.artifactId + '-' + options.version;
@@ -126,10 +129,12 @@ var createAndUploadArtifacts = function (options, done) {
     if (snapshot) {
         remoteArtifactName += "-" + options.timestamp + "-" + options.buildNumber;
     }
-    
-    uploads[pomDir + "/pom.xml"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom';
-    uploads[pomDir + "/pom.xml.sha1"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.sha1';
-    uploads[pomDir + "/pom.xml.md5"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.md5';
+
+    if (options.uploadMetadata) {
+        uploads[pomDir + "/pom.xml"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom';
+        uploads[pomDir + "/pom.xml.sha1"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.sha1';
+        uploads[pomDir + "/pom.xml.md5"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.md5';
+    }
 
     if (options.classifier) {
         remoteArtifactName = remoteArtifactName + "-" + options.classifier;
