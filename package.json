@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git@github.com:skhatri/grunt-nexus-deployer.git"
+        "url": "git@github.com:SpritzInc/grunt-nexus-deployer.git"
     },
     "bugs": {
         "url": "https://github.com/skhatri/grunt-nexus-deployer/issues"
