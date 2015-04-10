@@ -96,6 +96,12 @@ Default value: `''`
 
 Username to be used for authentication against nexus server
 
+#### options.insecure
+Type: `boolean`
+Default value: `false`
+
+Accept Self-Signed certificates when connecting over https.
+
 #### options.url
 Type: `String`
 Default value: `''`
