@@ -87,7 +87,7 @@ var createAndUploadArtifacts = function (options, done) {
             childProcess.stdout.on('data', function (data) {
                 status = data;
             });
-            childProcess.on('exit', function (code) {
+            childProcess.on('close', function (code) {
                 if (code !== 0 || (status !== "200" && status !== "201")) {
                     cb("Status code " + status + " for " + targetUri, null);
                 } else {
