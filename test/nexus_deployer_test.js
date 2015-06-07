@@ -1,7 +1,7 @@
 'use strict';
 
 
-var should = require('should'), mockexec = require('../tasks/lib/mockexec');
+var should = require('should'), mockexec = require('../tasks/lib/mockexec'), fs = require('fs');
 
 describe('Nexus Deployer', function () {
 
@@ -67,6 +67,24 @@ describe('Nexus Deployer', function () {
                 }
             });
         });
+		
+		it('inner.xml should be generated correctly', function() {
+			var expected = fs.readFileSync('test/expected/inner.xml', 'utf8');
+			var actual = fs.readFileSync('test/pom/inner.xml', 'utf8');
+			actual.should.equal(expected);
+		});
+		
+		it('outer.xml should be generated correctly', function() {
+			var expected = fs.readFileSync('test/expected/outer.xml', 'utf8');
+			var actual = fs.readFileSync('test/pom/outer.xml', 'utf8');
+			actual.should.equal(expected);
+		});
+		
+		it('pom.xml should be generated correctly', function() {
+			var expected = fs.readFileSync('test/expected/pom.xml', 'utf8');
+			var actual = fs.readFileSync('test/pom/pom.xml', 'utf8');
+			actual.should.equal(expected);
+		});
 
     });
 
