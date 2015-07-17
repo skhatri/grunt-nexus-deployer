@@ -43,6 +43,7 @@ grunt.initConfig({
 		  url: 'http://localhost:9220/nexus/content/repositories/releases',
 		  artifact: 'build/grunt-nexus-deployer.zip',
 		  noproxy: 'localhost',
+          uploadMethod: 'node',
 		  cwd: ''
 		}
       }
@@ -121,6 +122,12 @@ Default value: `'127.0.0.1'`
 
 list of comma separated addresses to exclude for which proxy is not applicable. This is a must when running proxy and HTTP_PROXY environment value is set.
 
+#### options.uploadMethod
+Type: `String`
+Default value: `'node'`
+
+The method to use to upload the artifact: `'node'` or `'curl'`.
+
 #### options.cwd
 Type: `String`
 Default value: `''`
@@ -161,6 +168,7 @@ grunt.initConfig({
 		  url: 'http://localhost:8081/nexus/content/repositories/releases',
 		  artifact: 'build/grunt-nexus-deployer.zip',
 		  noproxy: 'localhost',
+          uploadMethod: 'node',
 		  cwd: ''
 		}
       }
@@ -187,6 +195,7 @@ grunt.initConfig({
 		  url: 'http://localhost:8081/nexus/content/repositories/snapshots',
 		  artifact: 'build/grunt-nexus-deployer.zip',
 		  noproxy: 'localhost',
+          uploadMethod: 'node',
 		  cwd: '',
 		  parallel:false,
 		  quiet: true

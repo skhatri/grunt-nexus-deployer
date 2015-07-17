@@ -16,8 +16,7 @@ var cwd = __dirname;
 
 var createFile = function (template, options) {
     var outerMetadata = file.read(cwd + '/../template/' + template);
-    var metadata = ejs.render(outerMetadata, options);
-    return metadata;
+    return ejs.render(outerMetadata, options);
 };
 
 var md5 = function (str) {
@@ -54,47 +53,114 @@ var createAndUploadArtifacts = function (options, done) {
     file.write(pomDir + '/artifact.' + options.packaging + '.sha1', sha1(artifactData));
 
     var upload = function (fileLocation, targetFile) {
-        var uploadArtifact = function (cb) {
-            var targetUri = options.url + '/' + targetFile, status;
-            if (!options.quiet) {
-                log.write('Uploading to ' + targetUri + "\n\n");
-            }
+        var uploadArtifact;
 
-            var curlOptions = [
-                '--silent',
-                '--output', '/dev/stderr',
-                '--write-out', '"%{http_code}"',
-                '--upload-file', fileLocation,
-                '--noproxy', options.noproxy ? options.noproxy : '127.0.0.1'
-            ];
+        options.uploadMethod = options.uploadMethod || 'node';
 
-            if (options.auth) {
-                curlOptions.push('-u');
-                curlOptions.push(options.auth.username + ":" + options.auth.password);
-            }
+        var targetUri = options.url + '/' + targetFile;
+        
+        if (options.uploadMethod === 'curl') {
+            uploadArtifact = function (cb) {
+                var status;
 
-            if (options.insecure) {
-                curlOptions.push('--insecure');
-            }
-
-            var execOptions = {};
-            options.cwd && (execOptions.cwd = options.cwd);
-
-            var curlCmd = ['curl', curlOptions.join(' '), targetUri].join(' ');
-
-            var childProcess = exec(curlCmd, execOptions, function () {
-            });
-            childProcess.stdout.on('data', function (data) {
-                status = data;
-            });
-            childProcess.on('close', function (code) {
-                if (code !== 0 || (status !== "200" && status !== "201")) {
-                    cb("Status code " + status + " for " + targetUri, null);
-                } else {
-                    cb(null, "Ok");
+                if (!options.quiet) {
+                    log.write('Uploading to ' + targetUri + "\n\n");
                 }
-            });
-        };
+    
+                var curlOptions = [
+                    '--silent',
+                    '--output', '/dev/stderr',
+                    '--write-out', '"%{http_code}"',
+                    '--upload-file', fileLocation,
+                    '--noproxy', options.noproxy ? options.noproxy : '127.0.0.1'
+                ];
+    
+                if (options.auth) {
+                    curlOptions.push('-u');
+                    curlOptions.push(options.auth.username + ":" + options.auth.password);
+                }
+    
+                if (options.insecure) {
+                    curlOptions.push('--insecure');
+                }
+    
+                var execOptions = {};
+                options.cwd && (execOptions.cwd = options.cwd);
+    
+                var curlCmd = ['curl', curlOptions.join(' '), targetUri].join(' ');
+    
+                var childProcess = exec(curlCmd, execOptions, function () {
+                });
+                childProcess.stdout.on('data', function (data) {
+                    status = data;
+                });
+                childProcess.on('close', function (code) {
+                    if (code !== 0 || (status !== "200" && status !== "201")) {
+                        cb("Status code " + status + " for " + targetUri, null);
+                    } else {
+                        cb(null, "Ok");
+                    }
+                });
+            };
+        } else if (options.uploadMethod === 'node') {
+            uploadArtifact = function (cb) {
+                var fs = require('fs');
+
+                fs.readFile(fileLocation, function (err, fileData) {
+                    if (err) {
+                        cb('Error uploading "' + fileLocation + '"', null);
+                    }
+
+                    var url = require('url');
+                    var target = url.parse(targetUri);
+
+                    // require either http or https based on protocol of url
+                    var protocol = target.protocol.slice( 0, -1 );
+                    var client = require( protocol );
+
+                    var requestOptions = {
+                        hostname: target.hostname,
+                        port: target.port,
+                        path: target.path,
+                        method: 'PUT'
+                    };
+
+                    if (options.auth) {
+                        requestOptions.headers = {
+                            'Host': target.hostname,
+                            'Authorization': 'Basic ' + new Buffer(options.auth.username + ':' + options.auth.password).toString('base64')
+                        };
+                    }
+
+                    if (options.insecure && protocol === 'https') {
+                        requestOptions.rejectUnauthorized = false;
+                    }
+
+                    var req = client.request(requestOptions, function (res) {
+                        var status = res.statusCode;
+
+                        // ignore response body
+                        res.resume();
+
+                        if (status !== 200 && status !== 201) {
+                            cb("Status code " + status + " for " + targetUri, null);
+                        } else {
+                            cb(null, "Ok");
+                        }
+                    });
+
+                    req.on('error', function () {
+                        cb('Error uploading "' + fileLocation + '"', null);
+                    });
+
+                    req.write(fileData);
+                    req.end();
+                });
+            };
+        } else {
+            log.error('Invalid uploadMethod specified "%s"', options.uploadMethod);
+        }
+
         return uploadArtifact;
     };
 

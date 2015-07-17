@@ -50,6 +50,7 @@ module.exports = function (grunt) {
                     url: 'http://localhost:8081/nexus/content/repositories/snapshots',
                     artifact: 'test/fixtures/example.zip',
                     noproxy: 'localhost',
+                    uploadMethod: 'node',
                     cwd: '',
                     quiet: false,
                     insecure: true
@@ -59,7 +60,7 @@ module.exports = function (grunt) {
                 options: {
                     groupId: "grunt-nexus-deployer",
                     artifactId: "grunt-nexus-deployer",
-                    version: "1.2",
+                    version: "1.3",
                     packaging: 'zip',
                     auth: {
                         username: auth.username,
@@ -69,6 +70,7 @@ module.exports = function (grunt) {
                     url: 'http://localhost:8081/nexus/content/repositories/releases',
                     artifact: 'test/fixtures/example.zip',
                     noproxy: 'localhost',
+                    uploadMethod: 'node',
                     cwd: '',
                     quiet: true
                 }
