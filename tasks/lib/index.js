@@ -40,8 +40,8 @@ var createAndUploadArtifacts = function (options, done) {
     var pomDir = options.pomDir || 'test/poms';
 
     options.parallel = options.parallel === undefined ? false : options.parallel;
-    if (!file.exists(pomDir)) {
-        file.mkdir(pomDir);
+    if (!file.existsSync(pomDir)) {
+        file.mkdirSync(pomDir);
     }
 
 
