@@ -6,6 +6,7 @@ var ejs = require('ejs')
     , crypto = require('crypto')
     , async = require('async')
     , grunt = require('grunt')
+    , fs = require('fs')
     , file = grunt.file
     , log = grunt.log;
 
@@ -46,7 +47,7 @@ var directoryExists = function(dir) {
         }
         throw e;
     }
-}
+};
 
 var createAndUploadArtifacts = function (options, done) {
     var pomDir = options.pomDir || 'test/poms';
