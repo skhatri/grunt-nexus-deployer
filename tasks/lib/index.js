@@ -62,7 +62,8 @@ var createAndUploadArtifacts = function (options, done) {
 
             var curlOptions = [
                 '--silent',
-                '--output', '/dev/stderr',
+                '--fail',
+                '--show-error',
                 '--write-out', '"%{http_code}"',
                 '--upload-file', fileLocation,
                 '--noproxy', options.noproxy ? options.noproxy : '127.0.0.1'
