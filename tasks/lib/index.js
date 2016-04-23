@@ -6,6 +6,7 @@ var ejs = require('ejs')
     , crypto = require('crypto')
     , async = require('async')
     , grunt = require('grunt')
+    , fs = require('fs')
     , file = grunt.file
     , log = grunt.log;
 
@@ -36,12 +37,24 @@ var save = function (fileContent, pomDir, fileName) {
     file.write(pomDir + '/' + fileName + '.sha1', sha1(fileContent));
 };
 
+var directoryExists = function(dir) {
+    try {
+        return fs.statSync(dir).isDirectory();
+    } catch (e) {
+        // error is thrown by statSync when path does not exist
+        if (e.code === 'ENOENT') {
+            return false
+        }
+        throw e;
+    }
+};
+
 var createAndUploadArtifacts = function (options, done) {
     var pomDir = options.pomDir || 'test/poms';
 
     options.parallel = options.parallel === undefined ? false : options.parallel;
-    if (!file.exists(pomDir)) {
-        file.mkdir(pomDir);
+    if (!directoryExists(pomDir)) {
+        fs.mkdirSync(pomDir);
     }
 
 
