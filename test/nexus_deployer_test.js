@@ -40,6 +40,14 @@ describe('Nexus Deployer', function () {
             });
         });
 
+        it('handles passwords with special characters correctly', function () {
+            releaseHistory.concat(snapshotHistory).forEach(function (callParams) {
+                if (callParams) {
+                    callParams.should.match(/\-u 'admin\:baz\(boo\)\'M0o/);
+                }
+            });
+        });
+
         it('release uploads must not contain metadata files', function () {
             releaseHistory.filter(function (cmd) {
                 return INNER_METADATA_FILE_PATTERN.test(cmd);
@@ -67,19 +75,19 @@ describe('Nexus Deployer', function () {
                 }
             });
         });
-		
+
 		it('inner.xml should be generated correctly', function() {
 			var expected = fs.readFileSync('test/expected/inner.xml', 'utf8');
 			var actual = fs.readFileSync('test/pom/inner.xml', 'utf8');
 			actual.should.equal(expected);
 		});
-		
+
 		it('outer.xml should be generated correctly', function() {
 			var expected = fs.readFileSync('test/expected/outer.xml', 'utf8');
 			var actual = fs.readFileSync('test/pom/outer.xml', 'utf8');
 			actual.should.equal(expected);
 		});
-		
+
 		it('pom.xml should be generated correctly', function() {
 			var expected = fs.readFileSync('test/expected/pom.xml', 'utf8');
 			var actual = fs.readFileSync('test/pom/pom.xml', 'utf8');

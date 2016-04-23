@@ -11,7 +11,7 @@
 module.exports = function (grunt) {
 
     // Project configuration.
-    var auth = {username: 'admin', password: 'admin123'};
+    var auth = {username: 'admin', password: 'baz(boo)\'M0o'};
     grunt.initConfig({
         auth: auth,
         jshint: {
