@@ -49,6 +49,10 @@ var directoryExists = function(dir) {
     }
 };
 
+var isFunction = function(obj) {
+    return !!(obj && obj.constructor && obj.call && obj.apply);
+};
+
 var createAndUploadArtifacts = function (options, done) {
     var pomDir = options.pomDir || 'test/poms';
 
@@ -62,7 +66,8 @@ var createAndUploadArtifacts = function (options, done) {
     save(createFile('latest-metadata.xml', options), pomDir, 'inner.xml');
     save(createFile('pom.xml', options), pomDir, 'pom.xml');
 
-    var artifactData = file.read(options.artifact, {encoding: 'binary'});
+    var artifact = isFunction(options.artifact) ? options.artifact() : options.artifact;
+    var artifactData = file.read(artifact, {encoding: 'binary'});
     file.write(pomDir + '/artifact.' + options.packaging + '.md5', md5(artifactData));
     file.write(pomDir + '/artifact.' + options.packaging + '.sha1', sha1(artifactData));
 
@@ -125,14 +130,15 @@ var createAndUploadArtifacts = function (options, done) {
 
     var SNAPSHOT_VER = /.*SNAPSHOT$/i;
 
-    var groupArtifactVersionPath = groupArtifactPath + '/' + options.version;
-    if (SNAPSHOT_VER.test(options.version)) {
+    var version = isFunction(options.version) ? options.version() : options.version;
+    var groupArtifactVersionPath = groupArtifactPath + '/' + version;
+    if (SNAPSHOT_VER.test(version)) {
         uploads[pomDir + "/inner.xml"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml';
         uploads[pomDir + "/inner.xml.sha1"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml.sha1';
         uploads[pomDir + "/inner.xml.md5"] = groupArtifactVersionPath + '/' + 'maven-metadata.xml.md5';
     }
 
-    var remoteArtifactName = options.artifactId + '-' + options.version;
+    var remoteArtifactName = options.artifactId + '-' + version;
     uploads[pomDir + "/pom.xml"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom';
     uploads[pomDir + "/pom.xml.sha1"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.sha1';
     uploads[pomDir + "/pom.xml.md5"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.pom.md5';
@@ -141,7 +147,7 @@ var createAndUploadArtifacts = function (options, done) {
     if(options.classifier) {
         remoteArtifactName = remoteArtifactName + "-" + options.classifier;
     }
-    uploads[options.artifact] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging;
+    uploads[artifact] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging;
     uploads[pomDir + "/artifact." + options.packaging + ".sha1"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging + '.sha1';
     uploads[pomDir + "/artifact." + options.packaging + ".md5"] = groupArtifactVersionPath + '/' + remoteArtifactName + '.' + options.packaging + '.md5';
 
