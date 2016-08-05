@@ -7,6 +7,7 @@ var ejs = require('ejs')
     , async = require('async')
     , grunt = require('grunt')
     , fs = require('fs')
+    , mkdirp = require('mkdirp')
     , file = grunt.file
     , log = grunt.log;
 
@@ -54,7 +55,7 @@ var createAndUploadArtifacts = function (options, done) {
 
     options.parallel = options.parallel === undefined ? false : options.parallel;
     if (!directoryExists(pomDir)) {
-        fs.mkdirSync(pomDir);
+        mkdirp(pomDir);
     }
 
 
