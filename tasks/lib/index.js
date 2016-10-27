@@ -84,6 +84,8 @@ var createAndUploadArtifacts = function (options, done) {
             options.cwd && (execOptions.cwd = options.cwd);
 
             var curlCmd = ['curl', curlOptions.join(' '), targetUri].join(' ');
+            
+            log.write('curlCmd: "' + curlCmd + '"\n');
 
             var childProcess = exec(curlCmd, execOptions, function () {
             });
