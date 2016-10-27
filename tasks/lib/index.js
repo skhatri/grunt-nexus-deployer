@@ -91,6 +91,8 @@ var createAndUploadArtifacts = function (options, done) {
                 status = data;
             });
             childProcess.on('exit', function (code) {
+            	log.write('typeof(status): ' + typeof(status));
+            		    
                 if (code !== 0 || (status !== "200" && status !== "201")) {
                     cb("Status code " + status + " for " + targetUri, null);
                 } else {
