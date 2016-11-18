@@ -62,7 +62,7 @@ var createAndUploadArtifacts = function (options, done) {
     save(createFile('latest-metadata.xml', options), pomDir, 'inner.xml');
     save(createFile('pom.xml', options), pomDir, 'pom.xml');
 
-    var artifactData = file.read(options.artifact, {encoding: 'binary'});
+    var artifactData = file.read(options.artifact, {encoding: null});
     file.write(pomDir + '/artifact.' + options.packaging + '.md5', md5(artifactData));
     file.write(pomDir + '/artifact.' + options.packaging + '.sha1', sha1(artifactData));
 
