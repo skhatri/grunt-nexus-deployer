@@ -29,7 +29,8 @@
     "dependencies": {
         "dateformat":"^1.0.12",
         "async": "^2.1.2",
-        "handlebars": "^4.0.6"
+        "handlebars": "^4.0.6",
+        "mkdirp": "^0.5.1"
     },
     "devDependencies": {
         "grunt-contrib-jshint": "^1.0.0",
