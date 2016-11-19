@@ -1,6 +1,6 @@
 'use strict';
 
-var ejs = require('ejs')
+var handlebars = require('handlebars')
     , exec
     , dateformat = require('dateformat')
     , crypto = require('crypto')
@@ -10,14 +10,12 @@ var ejs = require('ejs')
     , file = grunt.file
     , log = grunt.log;
 
-ejs.open = "{{";
-ejs.close = "}}";
-
 var cwd = __dirname;
 
 var createFile = function (template, options) {
     var outerMetadata = file.read(cwd + '/../template/' + template);
-    var metadata = ejs.render(outerMetadata, options);
+    var template = handlebars.compile(outerMetadata);
+    var metadata = template(options);
     return metadata;
 };
 

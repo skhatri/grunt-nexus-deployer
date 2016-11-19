@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-    <groupId>{{= groupId }}</groupId>
-    <artifactId>{{= artifactId }}</artifactId>
-    <version>{{= version }}</version>
+    <groupId>{{ groupId }}</groupId>
+    <artifactId>{{ artifactId }}</artifactId>
+    <version>{{ version }}</version>
     <versioning>
-        <latest>{{= version }}</latest>
+        <latest>{{ version }}</latest>
         <versions>
-            <version>{{= version }}</version>
+            <version>{{ version }}</version>
         </versions>
-        <lastUpdated>{{= lastUpdated }}</lastUpdated>
+        <lastUpdated>{{ lastUpdated }}</lastUpdated>
     </versioning>
 </metadata>
