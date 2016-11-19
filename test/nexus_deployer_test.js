@@ -10,13 +10,14 @@ describe('Nexus Deployer', function () {
 
     beforeEach(function () {
         var exec = mockexec();
-        snapshotHistory = mockexec().data('snapshots');
+        snapshotHistory = exec.data('snapshots');
         releaseHistory = exec.data('releases');
     });
 
     describe('After deployment', function () {
 
         it('9 artifacts are uploaded for release', function () {
+
             releaseHistory.length.should.equal(9);
         });
 
