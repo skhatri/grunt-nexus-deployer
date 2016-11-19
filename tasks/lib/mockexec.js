@@ -21,9 +21,9 @@ var childProcess = {
 };
 
 module.exports = function (cmd) {
-    if (/repositories\/releases/.test(cmd)) {
+    if (/repository\/local-releases/.test(cmd)) {
         data.releases.push(cmd);
-    } else if (/repositories\/snapshots/.test(cmd)) {
+    } else if (/repository\/local-snapshots/.test(cmd)) {
         data.snapshots.push(cmd);
     }
 

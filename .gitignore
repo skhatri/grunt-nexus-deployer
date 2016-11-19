@@ -3,5 +3,7 @@ npm-debug.log
 tmp
 .idea
 test/pom
+.DS_Store
+
 
 

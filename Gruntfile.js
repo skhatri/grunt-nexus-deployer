@@ -47,7 +47,7 @@ module.exports = function (grunt) {
                         password: auth.password
                     },
                     pomDir: 'test/pom',
-                    url: 'http://localhost:8081/nexus/content/repositories/snapshots',
+                    url: 'http://localhost:8081/repository/local-snapshots',
                     artifact: 'test/fixtures/example.zip',
                     noproxy: 'localhost',
                     cwd: '',
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                         password: auth.password
                     },
                     pomDir: 'test/pom',
-                    url: 'http://localhost:8081/nexus/content/repositories/releases',
+                    url: 'http://localhost:8081/repository/local-releases',
                     artifact: 'test/fixtures/example.zip',
                     noproxy: 'localhost',
                     cwd: '',
