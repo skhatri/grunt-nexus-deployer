@@ -20,6 +20,17 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-nexus-deployer');
 ```
 
+## Starter Project
+Checkout starter project and test nexus publishing.
+```
+git clone git@github.com:skhatri/grunt-nexus-test.git
+cd grunt-nexus-test
+grunt nexusDeployer:snapshot
+```
+
+
+
+
 ## The "nexusDeployer" task
 
 ### Overview
