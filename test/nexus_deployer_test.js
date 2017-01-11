@@ -44,7 +44,7 @@ describe('Nexus Deployer', function () {
         it('handles passwords with special characters correctly', function () {
             releaseHistory.concat(snapshotHistory).forEach(function (callParams) {
                 if (callParams) {
-                    callParams.should.match(/\-u 'admin\:baz\(boo\)\'M0o/);
+                    callParams.should.match(/\-u "admin\:baz\(boo\)\'M0o/);
                 }
             });
         });
