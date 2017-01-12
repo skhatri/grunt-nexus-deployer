@@ -90,7 +90,7 @@ var createAndUploadArtifacts = function (options, done) {
                 curlOptions.push('-u');
                 var authString = options.auth.username + ':' + options.auth.password;
                 authString.replace(/'/g, '\\\'');
-                curlOptions.push("'" + authString + "'");
+                curlOptions.push("\"" + authString + "\"");
             }
 
             if (options.insecure) {
@@ -102,7 +102,10 @@ var createAndUploadArtifacts = function (options, done) {
 
             var curlCmd = ['curl', curlOptions.join(' '), targetUri].join(' ');
 
-            var childProcess = exec(curlCmd, execOptions, function () {
+            var childProcess = exec(curlCmd, execOptions, function (error) {
+                if (error) {
+                    log.error(error);
+                }
             });
             childProcess.stdout.on('data', function (data) {
                 status = data;
