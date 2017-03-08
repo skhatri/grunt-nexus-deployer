@@ -205,9 +205,14 @@ grunt.initConfig({
 });
 ```
 
-To run
+To run 
 ```
 grunt nexusDeployer
+```
+
+To run with authentication defined on command line
+```
+grunt nexusDeployer --username=<<username>> --password=<<password>>
 ```
 
 ## Release History
